@@ -1,0 +1,337 @@
+2021-12-17T05:31:43.5765948Z Found online and idle hosted runner in the current repository's organization account that matches the required labels: 'ubuntu-latest'
+2021-12-17T05:31:43.6823317Z Waiting for a Hosted runner in the 'organization' to pick this job...
+2021-12-17T05:31:43.8314177Z Job is waiting for a hosted runner to come online.
+2021-12-17T05:31:47.1426152Z Job is about to start running on the hosted runner: Hosted Agent (hosted)
+2021-12-17T05:31:49.1709781Z Current runner version: '2.285.1'
+2021-12-17T05:31:49.1739345Z ##[group]Operating System
+2021-12-17T05:31:49.1740878Z Ubuntu
+2021-12-17T05:31:49.1741920Z 20.04.3
+2021-12-17T05:31:49.1742880Z LTS
+2021-12-17T05:31:49.1743939Z ##[endgroup]
+2021-12-17T05:31:49.1745070Z ##[group]Virtual Environment
+2021-12-17T05:31:49.1746291Z Environment: ubuntu-20.04
+2021-12-17T05:31:49.1747380Z Version: 20211214.2
+2021-12-17T05:31:49.1749101Z Included Software: https://github.com/actions/virtual-environments/blob/ubuntu20/20211214.2/images/linux/Ubuntu2004-README.md
+2021-12-17T05:31:49.1751257Z Image Release: https://github.com/actions/virtual-environments/releases/tag/ubuntu20%2F20211214.2
+2021-12-17T05:31:49.1752819Z ##[endgroup]
+2021-12-17T05:31:49.1754031Z ##[group]Virtual Environment Provisioner
+2021-12-17T05:31:49.1755230Z 1.0.0.0-main-20211208-1
+2021-12-17T05:31:49.1756325Z ##[endgroup]
+2021-12-17T05:31:49.1759440Z ##[group]GITHUB_TOKEN Permissions
+2021-12-17T05:31:49.1761226Z Actions: write
+2021-12-17T05:31:49.1762408Z Checks: write
+2021-12-17T05:31:49.1763679Z Contents: write
+2021-12-17T05:31:49.1764770Z Deployments: write
+2021-12-17T05:31:49.1765895Z Discussions: write
+2021-12-17T05:31:49.1767017Z Issues: write
+2021-12-17T05:31:49.1768111Z Metadata: read
+2021-12-17T05:31:49.1769206Z Packages: write
+2021-12-17T05:31:49.1770252Z Pages: write
+2021-12-17T05:31:49.1771368Z PullRequests: write
+2021-12-17T05:31:49.1772581Z RepositoryProjects: write
+2021-12-17T05:31:49.1773791Z SecurityEvents: write
+2021-12-17T05:31:49.1775027Z Statuses: write
+2021-12-17T05:31:49.1776280Z ##[endgroup]
+2021-12-17T05:31:49.1779765Z Secret source: Actions
+2021-12-17T05:31:49.1781243Z Prepare workflow directory
+2021-12-17T05:31:49.2373686Z Prepare all required actions
+2021-12-17T05:31:49.2383895Z Getting action download info
+2021-12-17T05:31:49.4566036Z Download action repository 'actions/checkout@v2' (SHA:ec3a7ce113134d7a93b817d10a8272cb61118579)
+2021-12-17T05:31:51.3945496Z Download action repository 'actions/setup-node@v2' (SHA:04c56d2f954f1e4c69436aa54cfef261a018f458)
+2021-12-17T05:31:53.8245794Z Download action repository 'easingthemes/ssh-deploy@main' (SHA:c711f2c3391cac2876bf4c833590077f02e4bcb8)
+2021-12-17T05:31:54.6111537Z ##[group]Run actions/checkout@v2
+2021-12-17T05:31:54.6112704Z with:
+2021-12-17T05:31:54.6113650Z   repository: ioslh/to-qrcode
+2021-12-17T05:31:54.6115056Z   token: ***
+2021-12-17T05:31:54.6115957Z   ssh-strict: true
+2021-12-17T05:31:54.6116960Z   persist-credentials: true
+2021-12-17T05:31:54.6117949Z   clean: true
+2021-12-17T05:31:54.6118828Z   fetch-depth: 1
+2021-12-17T05:31:54.6119708Z   lfs: false
+2021-12-17T05:31:54.6120581Z   submodules: false
+2021-12-17T05:31:54.6121481Z ##[endgroup]
+2021-12-17T05:31:54.8707129Z Syncing repository: ioslh/to-qrcode
+2021-12-17T05:31:54.8709222Z ##[group]Getting Git version info
+2021-12-17T05:31:54.8710616Z Working directory is '/home/runner/work/to-qrcode/to-qrcode'
+2021-12-17T05:31:54.8712540Z [command]/usr/bin/git version
+2021-12-17T05:31:54.8812723Z git version 2.34.1
+2021-12-17T05:31:54.8817136Z ##[endgroup]
+2021-12-17T05:31:54.8818502Z Deleting the contents of '/home/runner/work/to-qrcode/to-qrcode'
+2021-12-17T05:31:54.8821864Z ##[group]Initializing the repository
+2021-12-17T05:31:54.8823279Z [command]/usr/bin/git init /home/runner/work/to-qrcode/to-qrcode
+2021-12-17T05:31:54.8909711Z hint: Using 'master' as the name for the initial branch. This default branch name
+2021-12-17T05:31:54.8911342Z hint: is subject to change. To configure the initial branch name to use in all
+2021-12-17T05:31:54.8913170Z hint: of your new repositories, which will suppress this warning, call:
+2021-12-17T05:31:54.8914360Z hint: 
+2021-12-17T05:31:54.8915579Z hint: 	git config --global init.defaultBranch <name>
+2021-12-17T05:31:54.8916655Z hint: 
+2021-12-17T05:31:54.8917886Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2021-12-17T05:31:54.8919478Z hint: 'development'. The just-created branch can be renamed via this command:
+2021-12-17T05:31:54.8920660Z hint: 
+2021-12-17T05:31:54.8921959Z hint: 	git branch -m <name>
+2021-12-17T05:31:54.8923442Z Initialized empty Git repository in /home/runner/work/to-qrcode/to-qrcode/.git/
+2021-12-17T05:31:54.8926973Z [command]/usr/bin/git remote add origin https://github.com/ioslh/to-qrcode
+2021-12-17T05:31:54.9017305Z ##[endgroup]
+2021-12-17T05:31:54.9019547Z ##[group]Disabling automatic garbage collection
+2021-12-17T05:31:54.9021404Z [command]/usr/bin/git config --local gc.auto 0
+2021-12-17T05:31:54.9023336Z ##[endgroup]
+2021-12-17T05:31:54.9027399Z ##[group]Setting up auth
+2021-12-17T05:31:54.9028983Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2021-12-17T05:31:54.9050772Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :
+2021-12-17T05:31:54.9353580Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2021-12-17T05:31:54.9376983Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :
+2021-12-17T05:31:54.9603368Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2021-12-17T05:31:54.9638684Z ##[endgroup]
+2021-12-17T05:31:54.9640789Z ##[group]Fetching the repository
+2021-12-17T05:31:54.9647024Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --progress --no-recurse-submodules --depth=1 origin +ddfc53fa551477f7ef3083cdd4634cc97dc430ab:refs/remotes/origin/master
+2021-12-17T05:31:55.3656742Z remote: Enumerating objects: 63, done.        
+2021-12-17T05:31:55.3660149Z remote: Counting objects:   1% (1/63)        
+2021-12-17T05:31:55.3662071Z remote: Counting objects:   3% (2/63)        
+2021-12-17T05:31:55.3663681Z remote: Counting objects:   4% (3/63)        
+2021-12-17T05:31:55.3665232Z remote: Counting objects:   6% (4/63)        
+2021-12-17T05:31:55.3666897Z remote: Counting objects:   7% (5/63)        
+2021-12-17T05:31:55.3668420Z remote: Counting objects:   9% (6/63)        
+2021-12-17T05:31:55.3670188Z remote: Counting objects:  11% (7/63)        
+2021-12-17T05:31:55.3671648Z remote: Counting objects:  12% (8/63)        
+2021-12-17T05:31:55.3673107Z remote: Counting objects:  14% (9/63)        
+2021-12-17T05:31:55.3674575Z remote: Counting objects:  15% (10/63)        
+2021-12-17T05:31:55.3676239Z remote: Counting objects:  17% (11/63)        
+2021-12-17T05:31:55.3678037Z remote: Counting objects:  19% (12/63)        
+2021-12-17T05:31:55.3679293Z remote: Counting objects:  20% (13/63)        
+2021-12-17T05:31:55.3680533Z remote: Counting objects:  22% (14/63)        
+2021-12-17T05:31:55.3681753Z remote: Counting objects:  23% (15/63)        
+2021-12-17T05:31:55.3682966Z remote: Counting objects:  25% (16/63)        
+2021-12-17T05:31:55.3684175Z remote: Counting objects:  26% (17/63)        
+2021-12-17T05:31:55.3685377Z remote: Counting objects:  28% (18/63)        
+2021-12-17T05:31:55.3686669Z remote: Counting objects:  30% (19/63)        
+2021-12-17T05:31:55.3687934Z remote: Counting objects:  31% (20/63)        
+2021-12-17T05:31:55.3689106Z remote: Counting objects:  33% (21/63)        
+2021-12-17T05:31:55.3690288Z remote: Counting objects:  34% (22/63)        
+2021-12-17T05:31:55.3691466Z remote: Counting objects:  36% (23/63)        
+2021-12-17T05:31:55.3692715Z remote: Counting objects:  38% (24/63)        
+2021-12-17T05:31:55.3694091Z remote: Counting objects:  39% (25/63)        
+2021-12-17T05:31:55.3695306Z remote: Counting objects:  41% (26/63)        
+2021-12-17T05:31:55.3696416Z remote: Counting objects:  42% (27/63)        
+2021-12-17T05:31:55.3697584Z remote: Counting objects:  44% (28/63)        
+2021-12-17T05:31:55.3698644Z remote: Counting objects:  46% (29/63)        
+2021-12-17T05:31:55.3699684Z remote: Counting objects:  47% (30/63)        
+2021-12-17T05:31:55.3700730Z remote: Counting objects:  49% (31/63)        
+2021-12-17T05:31:55.3702325Z remote: Counting objects:  50% (32/63)        
+2021-12-17T05:31:55.3703377Z remote: Counting objects:  52% (33/63)        
+2021-12-17T05:31:55.3704518Z remote: Counting objects:  53% (34/63)        
+2021-12-17T05:31:55.3705570Z remote: Counting objects:  55% (35/63)        
+2021-12-17T05:31:55.3706614Z remote: Counting objects:  57% (36/63)        
+2021-12-17T05:31:55.3707670Z remote: Counting objects:  58% (37/63)        
+2021-12-17T05:31:55.3708729Z remote: Counting objects:  60% (38/63)        
+2021-12-17T05:31:55.3709770Z remote: Counting objects:  61% (39/63)        
+2021-12-17T05:31:55.3710789Z remote: Counting objects:  63% (40/63)        
+2021-12-17T05:31:55.3711842Z remote: Counting objects:  65% (41/63)        
+2021-12-17T05:31:55.3712889Z remote: Counting objects:  66% (42/63)        
+2021-12-17T05:31:55.3713951Z remote: Counting objects:  68% (43/63)        
+2021-12-17T05:31:55.3714990Z remote: Counting objects:  69% (44/63)        
+2021-12-17T05:31:55.3716031Z remote: Counting objects:  71% (45/63)        
+2021-12-17T05:31:55.3717170Z remote: Counting objects:  73% (46/63)        
+2021-12-17T05:31:55.3718295Z remote: Counting objects:  74% (47/63)        
+2021-12-17T05:31:55.3719358Z remote: Counting objects:  76% (48/63)        
+2021-12-17T05:31:55.3720399Z remote: Counting objects:  77% (49/63)        
+2021-12-17T05:31:55.3721443Z remote: Counting objects:  79% (50/63)        
+2021-12-17T05:31:55.3722489Z remote: Counting objects:  80% (51/63)        
+2021-12-17T05:31:55.3723522Z remote: Counting objects:  82% (52/63)        
+2021-12-17T05:31:55.3724578Z remote: Counting objects:  84% (53/63)        
+2021-12-17T05:31:55.3725625Z remote: Counting objects:  85% (54/63)        
+2021-12-17T05:31:55.3726666Z remote: Counting objects:  87% (55/63)        
+2021-12-17T05:31:55.3727714Z remote: Counting objects:  88% (56/63)        
+2021-12-17T05:31:55.3728755Z remote: Counting objects:  90% (57/63)        
+2021-12-17T05:31:55.3729787Z remote: Counting objects:  92% (58/63)        
+2021-12-17T05:31:55.3730916Z remote: Counting objects:  93% (59/63)        
+2021-12-17T05:31:55.3732173Z remote: Counting objects:  95% (60/63)        
+2021-12-17T05:31:55.3733246Z remote: Counting objects:  96% (61/63)        
+2021-12-17T05:31:55.3734305Z remote: Counting objects:  98% (62/63)        
+2021-12-17T05:31:55.3735472Z remote: Counting objects: 100% (63/63)        
+2021-12-17T05:31:55.3736561Z remote: Counting objects: 100% (63/63), done.        
+2021-12-17T05:31:55.3737950Z remote: Compressing objects:   1% (1/57)        
+2021-12-17T05:31:55.3739060Z remote: Compressing objects:   3% (2/57)        
+2021-12-17T05:31:55.3740168Z remote: Compressing objects:   5% (3/57)        
+2021-12-17T05:31:55.3741278Z remote: Compressing objects:   7% (4/57)        
+2021-12-17T05:31:55.3742378Z remote: Compressing objects:   8% (5/57)        
+2021-12-17T05:31:55.3743487Z remote: Compressing objects:  10% (6/57)        
+2021-12-17T05:31:55.3744581Z remote: Compressing objects:  12% (7/57)        
+2021-12-17T05:31:55.3745742Z remote: Compressing objects:  14% (8/57)        
+2021-12-17T05:31:55.3746815Z remote: Compressing objects:  15% (9/57)        
+2021-12-17T05:31:55.3747968Z remote: Compressing objects:  17% (10/57)        
+2021-12-17T05:31:55.3749086Z remote: Compressing objects:  19% (11/57)        
+2021-12-17T05:31:55.3750196Z remote: Compressing objects:  21% (12/57)        
+2021-12-17T05:31:55.3751311Z remote: Compressing objects:  22% (13/57)        
+2021-12-17T05:31:55.3752409Z remote: Compressing objects:  24% (14/57)        
+2021-12-17T05:31:55.3753496Z remote: Compressing objects:  26% (15/57)        
+2021-12-17T05:31:55.3754618Z remote: Compressing objects:  28% (16/57)        
+2021-12-17T05:31:55.3755699Z remote: Compressing objects:  29% (17/57)        
+2021-12-17T05:31:55.3756787Z remote: Compressing objects:  31% (18/57)        
+2021-12-17T05:31:55.3757867Z remote: Compressing objects:  33% (19/57)        
+2021-12-17T05:31:55.3758939Z remote: Compressing objects:  35% (20/57)        
+2021-12-17T05:31:55.3760237Z remote: Compressing objects:  36% (21/57)        
+2021-12-17T05:31:55.3761325Z remote: Compressing objects:  38% (22/57)        
+2021-12-17T05:31:55.3762480Z remote: Compressing objects:  40% (23/57)        
+2021-12-17T05:31:55.3763560Z remote: Compressing objects:  42% (24/57)        
+2021-12-17T05:31:55.3764632Z remote: Compressing objects:  43% (25/57)        
+2021-12-17T05:31:55.3765714Z remote: Compressing objects:  45% (26/57)        
+2021-12-17T05:31:55.3766796Z remote: Compressing objects:  47% (27/57)        
+2021-12-17T05:31:55.3767893Z remote: Compressing objects:  49% (28/57)        
+2021-12-17T05:31:55.4223299Z remote: Compressing objects:  50% (29/57)        
+2021-12-17T05:31:55.4225962Z remote: Compressing objects:  52% (30/57)        
+2021-12-17T05:31:55.4227073Z remote: Compressing objects:  54% (31/57)        
+2021-12-17T05:31:55.4228114Z remote: Compressing objects:  56% (32/57)        
+2021-12-17T05:31:55.4229155Z remote: Compressing objects:  57% (33/57)        
+2021-12-17T05:31:55.4230180Z remote: Compressing objects:  59% (34/57)        
+2021-12-17T05:31:55.4231055Z remote: Compressing objects:  61% (35/57)        
+2021-12-17T05:31:55.4231995Z remote: Compressing objects:  63% (36/57)        
+2021-12-17T05:31:55.4232867Z remote: Compressing objects:  64% (37/57)        
+2021-12-17T05:31:55.4233730Z remote: Compressing objects:  66% (38/57)        
+2021-12-17T05:31:55.4234572Z remote: Compressing objects:  68% (39/57)        
+2021-12-17T05:31:55.4235433Z remote: Compressing objects:  70% (40/57)        
+2021-12-17T05:31:55.4236284Z remote: Compressing objects:  71% (41/57)        
+2021-12-17T05:31:55.4237149Z remote: Compressing objects:  73% (42/57)        
+2021-12-17T05:31:55.4238003Z remote: Compressing objects:  75% (43/57)        
+2021-12-17T05:31:55.4238853Z remote: Compressing objects:  77% (44/57)        
+2021-12-17T05:31:55.4239702Z remote: Compressing objects:  78% (45/57)        
+2021-12-17T05:31:55.4240562Z remote: Compressing objects:  80% (46/57)        
+2021-12-17T05:31:55.4241500Z remote: Compressing objects:  82% (47/57)        
+2021-12-17T05:31:55.4242888Z remote: Compressing objects:  84% (48/57)        
+2021-12-17T05:31:55.4243953Z remote: Compressing objects:  85% (49/57)        
+2021-12-17T05:31:55.4245033Z remote: Compressing objects:  87% (50/57)        
+2021-12-17T05:31:55.4246095Z remote: Compressing objects:  89% (51/57)        
+2021-12-17T05:31:55.4247113Z remote: Compressing objects:  91% (52/57)        
+2021-12-17T05:31:55.4248152Z remote: Compressing objects:  92% (53/57)        
+2021-12-17T05:31:55.4249221Z remote: Compressing objects:  94% (54/57)        
+2021-12-17T05:31:55.4250279Z remote: Compressing objects:  96% (55/57)        
+2021-12-17T05:31:55.4251329Z remote: Compressing objects:  98% (56/57)        
+2021-12-17T05:31:55.4252330Z remote: Compressing objects: 100% (57/57)        
+2021-12-17T05:31:55.4253442Z remote: Compressing objects: 100% (57/57), done.        
+2021-12-17T05:31:55.5870255Z remote: Total 63 (delta 2), reused 33 (delta 0), pack-reused 0        
+2021-12-17T05:31:55.5905939Z From https://github.com/ioslh/to-qrcode
+2021-12-17T05:31:55.5908209Z  * [new ref]         ddfc53fa551477f7ef3083cdd4634cc97dc430ab -> origin/master
+2021-12-17T05:31:55.5930498Z ##[endgroup]
+2021-12-17T05:31:55.5932477Z ##[group]Determining the checkout info
+2021-12-17T05:31:55.5934426Z ##[endgroup]
+2021-12-17T05:31:55.5936597Z ##[group]Checking out the ref
+2021-12-17T05:31:55.5938409Z [command]/usr/bin/git checkout --progress --force -B master refs/remotes/origin/master
+2021-12-17T05:31:55.6022174Z Reset branch 'master'
+2021-12-17T05:31:55.6026416Z Branch 'master' set up to track remote branch 'master' from 'origin'.
+2021-12-17T05:31:55.6031523Z ##[endgroup]
+2021-12-17T05:31:55.6070383Z [command]/usr/bin/git log -1 --format='%H'
+2021-12-17T05:31:55.6096736Z 'ddfc53fa551477f7ef3083cdd4634cc97dc430ab'
+2021-12-17T05:31:55.6420567Z ##[group]Run actions/setup-node@v2
+2021-12-17T05:31:55.6421326Z with:
+2021-12-17T05:31:55.6422014Z   node-version: 14
+2021-12-17T05:31:55.6422821Z   always-auth: false
+2021-12-17T05:31:55.6423537Z   check-latest: false
+2021-12-17T05:31:55.6424710Z   token: ***
+2021-12-17T05:31:55.6425383Z ##[endgroup]
+2021-12-17T05:31:55.7993045Z Found in cache @ /opt/hostedtoolcache/node/14.18.2/x64
+2021-12-17T05:31:55.8114730Z ##[group]Run npm install -g yarn
+2021-12-17T05:31:55.8115585Z [36;1mnpm install -g yarn[0m
+2021-12-17T05:31:55.8116284Z [36;1myarn[0m
+2021-12-17T05:31:55.8116938Z [36;1myarn build[0m
+2021-12-17T05:31:55.8117592Z [36;1mls[0m
+2021-12-17T05:31:55.8118231Z [36;1mls dist[0m
+2021-12-17T05:31:55.8118849Z [36;1m    [0m
+2021-12-17T05:31:55.8163674Z shell: /usr/bin/bash -e {0}
+2021-12-17T05:31:55.8164416Z ##[endgroup]
+2021-12-17T05:31:56.7746221Z 
+2021-12-17T05:31:56.7748500Z > yarn@1.22.17 preinstall /opt/hostedtoolcache/node/14.18.2/x64/lib/node_modules/yarn
+2021-12-17T05:31:56.7749851Z > :; (node ./preinstall.js > /dev/null 2>&1 || true)
+2021-12-17T05:31:56.7750431Z 
+2021-12-17T05:31:57.0008867Z /opt/hostedtoolcache/node/14.18.2/x64/bin/yarn -> /opt/hostedtoolcache/node/14.18.2/x64/lib/node_modules/yarn/bin/yarn.js
+2021-12-17T05:31:57.0011667Z /opt/hostedtoolcache/node/14.18.2/x64/bin/yarnpkg -> /opt/hostedtoolcache/node/14.18.2/x64/lib/node_modules/yarn/bin/yarn.js
+2021-12-17T05:31:57.0037173Z + yarn@1.22.17
+2021-12-17T05:31:57.0038265Z added 1 package in 0.56s
+2021-12-17T05:31:57.2700343Z yarn install v1.22.17
+2021-12-17T05:31:57.3330413Z [1/4] Resolving packages...
+2021-12-17T05:31:57.4297044Z [2/4] Fetching packages...
+2021-12-17T05:32:03.8273457Z warning Workspaces can only be enabled in private projects.
+2021-12-17T05:32:03.8274783Z [3/4] Linking dependencies...
+2021-12-17T05:32:06.0952243Z [4/4] Building fresh packages...
+2021-12-17T05:32:07.0404796Z Done in 9.78s.
+2021-12-17T05:32:07.1935264Z yarn run v1.22.17
+2021-12-17T05:32:07.2225169Z $ vite build
+2021-12-17T05:32:07.5312296Z vite v2.4.2 building for production...
+2021-12-17T05:32:07.5968574Z transforming...
+2021-12-17T05:32:12.6399834Z ✓ 698 modules transformed.
+2021-12-17T05:32:13.7623420Z rendering chunks...
+2021-12-17T05:32:18.9000794Z dist/assets/element-icons.9c88a535.woff   24.24kb
+2021-12-17T05:32:18.9003974Z dist/assets/element-icons.de5eb258.ttf    49.19kb
+2021-12-17T05:32:18.9044283Z dist/index.html                           1.15kb
+2021-12-17T05:32:19.0212169Z dist/assets/index.e67304d9.js             31.73kb / brotli: 10.27kb
+2021-12-17T05:32:19.0886381Z dist/assets/index.ce1f52a0.css            87.04kb / brotli: 10.88kb
+2021-12-17T05:32:19.8912381Z dist/assets/vendor.472cd458.js            400.79kb / brotli: 120.03kb
+2021-12-17T05:32:19.9266240Z Done in 12.74s.
+2021-12-17T05:32:19.9308982Z LICENSE
+2021-12-17T05:32:19.9311692Z README.md
+2021-12-17T05:32:19.9320820Z dist
+2021-12-17T05:32:19.9321949Z index.html
+2021-12-17T05:32:19.9322977Z node_modules
+2021-12-17T05:32:19.9324032Z package.json
+2021-12-17T05:32:19.9324889Z public
+2021-12-17T05:32:19.9325760Z src
+2021-12-17T05:32:19.9326617Z tsconfig.json
+2021-12-17T05:32:19.9327690Z vercel.json
+2021-12-17T05:32:19.9328735Z vite.config.ts
+2021-12-17T05:32:19.9329702Z yarn.lock
+2021-12-17T05:32:19.9330576Z assets
+2021-12-17T05:32:19.9331385Z beian.png
+2021-12-17T05:32:19.9332181Z fonts
+2021-12-17T05:32:19.9332950Z github.svg
+2021-12-17T05:32:19.9333776Z index.html
+2021-12-17T05:32:19.9334573Z logo.png
+2021-12-17T05:32:19.9335833Z logo.svg
+2021-12-17T05:32:19.9337519Z monaco-editor-worker-loader-proxy.js
+2021-12-17T05:32:19.9338641Z ts.svg
+2021-12-17T05:32:19.9482749Z ##[group]Run easingthemes/ssh-deploy@main
+2021-12-17T05:32:19.9483575Z with:
+2021-12-17T05:32:19.9484236Z   REMOTE_PORT: 22
+2021-12-17T05:32:19.9484939Z   TARGET: /home/REMOTE_USER/
+2021-12-17T05:32:19.9485648Z   ARGS: -rltgoDzvO
+2021-12-17T05:32:19.9486290Z env:
+2021-12-17T05:32:19.9520667Z   SSH_PRIVATE_KEY: ***
+2021-12-17T05:32:19.9521390Z   SOURCE: dist/
+2021-12-17T05:32:19.9522100Z   REMOTE_HOST: ***
+2021-12-17T05:32:19.9522778Z   REMOTE_USER: ***
+2021-12-17T05:32:19.9523513Z   TARGET: ***
+2021-12-17T05:32:19.9524161Z ##[endgroup]
+2021-12-17T05:32:19.9854172Z [general] GITHUB_WORKSPACE:  /home/runner/work/to-qrcode/to-qrcode
+2021-12-17T05:32:19.9893279Z [SSH] Creating /home/runner/.ssh dir in  /home/runner/work/to-qrcode/to-qrcode
+2021-12-17T05:32:19.9895567Z ✅ [SSH] dir created.
+2021-12-17T05:32:19.9896978Z [SSH] Creating /home/runner/.ssh/known_hosts file in  /home/runner/work/to-qrcode/to-qrcode
+2021-12-17T05:32:19.9898398Z ✅ [SSH] file created.
+2021-12-17T05:32:19.9900097Z ✅ Ssh key added to `.ssh` dir  /home/runner/.ssh/deploy_key
+2021-12-17T05:32:19.9902152Z [Rsync] Starting Rsync Action: /home/runner/work/to-qrcode/to-qrcode/dist/ to ***@***:***
+2021-12-17T05:32:19.9903397Z [Rsync] exluding folders 
+2021-12-17T05:32:23.5053258Z ✅ [Rsync] finished. sending incremental file list
+2021-12-17T05:32:23.5054577Z beian.png
+2021-12-17T05:32:23.5055694Z github.svg
+2021-12-17T05:32:23.5056561Z index.html
+2021-12-17T05:32:23.5057343Z logo.png
+2021-12-17T05:32:23.5058120Z logo.svg
+2021-12-17T05:32:23.5059475Z monaco-editor-worker-loader-proxy.js
+2021-12-17T05:32:23.5060627Z ts.svg
+2021-12-17T05:32:23.5061777Z assets/element-icons.9c88a535.woff
+2021-12-17T05:32:23.5063142Z assets/element-icons.de5eb258.ttf
+2021-12-17T05:32:23.5064220Z assets/index.ce1f52a0.css
+2021-12-17T05:32:23.5065173Z assets/index.e67304d9.js
+2021-12-17T05:32:23.5066140Z assets/vendor.472cd458.js
+2021-12-17T05:32:23.5067381Z fonts/JetBrainsMono-Regular.woff2
+2021-12-17T05:32:23.5069694Z 
+2021-12-17T05:32:23.5075876Z sent 135,290 bytes  received 5,097 bytes  31,197.11 bytes/sec
+2021-12-17T05:32:23.5079118Z total size is 790,481  speedup is 5.63
+2021-12-17T05:32:23.5079631Z 
+2021-12-17T05:32:23.5178514Z Post job cleanup.
+2021-12-17T05:32:23.6469383Z Post job cleanup.
+2021-12-17T05:32:23.7633320Z [command]/usr/bin/git version
+2021-12-17T05:32:23.7676194Z git version 2.34.1
+2021-12-17T05:32:23.7708297Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2021-12-17T05:32:23.7749313Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :
+2021-12-17T05:32:23.7951890Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2021-12-17T05:32:23.7978097Z http.https://github.com/.extraheader
+2021-12-17T05:32:23.7988198Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2021-12-17T05:32:23.8024592Z [command]/usr/bin/git submodule foreach --recursive git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :
+2021-12-17T05:32:23.8303587Z Cleaning up orphan processes
