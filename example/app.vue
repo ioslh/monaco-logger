@@ -1,18 +1,20 @@
 <template>
   <div class="page">
     <div class="left">
-      <checkbox v-model:value="softWrap">soft wrap</checkbox>
+      <checkbox v-model:value="wrap">wrap line</checkbox>
       <checkbox v-model:value="showTimestamp">show timestamp</checkbox>
       <checkbox v-model:value="showLineNumber">show line number</checkbox>
     </div>
-    <div class="right">
+    <div class="right" ref="containerRef">
       <monaco-provider #default="{ monaco }">
-        <log-viewer
+        <monaco-logger
+          ref="loggerRef"
           :logs="logs"
           :monaco="monaco"
-          :soft-wrap="softWrap"
+          :wrap="wrap"
           :show-timestamp="showTimestamp"
           :show-line-number="showLineNumber"
+          :styles="presetStyles"
         />
       </monaco-provider>
     </div>
@@ -20,23 +22,54 @@
 </template>
 
 <script setup lang="ts">
-import MonacoProvider from './monaco.vue'
-import LogViewer from './log-viewer.vue'
-import type { LogLine, LogGroup } from './types'
-import { onMounted } from 'vue'
-import logParser from './log-parser'
+import MonacoProvider from '@src/monaco-provider.vue'
+import MonacoLogger from '@src/monaco-logger.vue'
+import type { RawLog } from '@src/types'
+import { onMounted, watch, type CSSProperties } from 'vue'
+import logParser from '@src/log-parser'
+import useNodeSize from './use-node-size'
 import Checkbox from './checkbox.vue'
 
-let logs = $ref<Array<LogLine | LogGroup>>([])
-let softWrap = $ref(true)
+const presetStyles = {
+  info: {
+    color: 'red',
+    background: 'blue',
+    textDecoration: 'underline'
+  },
+  warn: {},
+  error: {
+    color: 'red',
+  },
+  command: {},
+} as Record<string, CSSProperties>
+
+let containerRef = $ref<HTMLDivElement>()
+let loggerRef = $ref<typeof MonacoLogger>()
+let logs = $ref<RawLog[]>([])
+let wrap = $ref(true)
 let showTimestamp = $ref(true)
 let showLineNumber = $ref(true)
 
+const rect = useNodeSize<HTMLDivElement>($$(containerRef))
+watch(rect, () => {
+  if (loggerRef) {
+    console.log('wull resize')
+    loggerRef.editor.layout()
+  }
+})
 
 onMounted(() => {
   fetch('/github-log.txt').then(async res => {
     const raw = await res.text()
-    console.log(logs = logParser(raw))
+    let spaceIndex: number
+    logs = raw.split('\n').map((l, idx) => {
+      spaceIndex = spaceIndex || l.indexOf(' ')
+      return {
+        lineNo: idx + 1,
+        timestamp: l.slice(0, spaceIndex),
+        message: l.slice(spaceIndex + 1),
+      }
+    })
   })
 })
 </script>
@@ -66,5 +99,6 @@ onMounted(() => {
 
 .right {
   flex: 1;
+  overflow: hidden;
 }
 </style>

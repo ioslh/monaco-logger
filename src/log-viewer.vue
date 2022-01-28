@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-import { onMounted, watch, type DeepReadonly } from 'vue'
+import { onMounted, watch, type DeepReadonly, type CSSProperties } from 'vue'
 import type Monaco from 'monaco-editor'
 import type { LogLine, LogGroup } from './types'
 
@@ -22,10 +22,11 @@ let container = $ref<HTMLDivElement>()
 
 const props = defineProps<{
   monaco: DeepReadonly<typeof Monaco>
-  softWrap?: boolean
+  wrap?: boolean
   showLineNumber?: boolean
   showTimestamp?: boolean
   logs: Array<LogLine | LogGroup>
+  styles?: Record<string, CSSProperties>
 }>()
 
 let flattenLogs = $ref<LogLine[]>([])
@@ -44,10 +45,10 @@ const setValue = () => {
   }
 }
 
-const setSoftWrap = () => {
+const setWrap = () => {
   if (editor) {
     editor.updateOptions({
-      wordWrap: props.softWrap ? 'on' : 'off'
+      wordWrap: props.wrap ? 'on' : 'off'
     })
   }
 }
@@ -90,11 +91,11 @@ const initLogViewer = () => {
   })
 
   setValue()
-  setSoftWrap()
+  setWrap()
 }
 
 watch(() => [...props.logs], internalParse, { immediate: true })
-watch(() => props.softWrap, setSoftWrap, { immediate: true })
+watch(() => props.wrap, setWrap, { immediate: true })
 
 onMounted(initLogViewer)
 </script>

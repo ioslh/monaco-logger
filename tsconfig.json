@@ -10,12 +10,21 @@
     "types": ["vite/client", "vue/macros-global"],
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "lib": ["esnext", "dom"]
+    "lib": ["esnext", "dom"],
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["./src/*"]
+    }
   },
   "include": [
     "example/**/*.ts",
     "example/**/*.d.ts",
     "example/**/*.tsx",
-    "example/**/*.vue"
+    "example/**/*.vue",
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue",
+    "env.d.ts"
   ]
 }

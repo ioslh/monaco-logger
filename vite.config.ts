@@ -4,5 +4,10 @@ import vue from '@vitejs/plugin-vue'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue({ reactivityTransform: true })],
-  publicDir: './example/public'
+  publicDir: './example/public',
+  resolve: {
+    alias: {
+      '@src': '/src/'
+    }
+  }
 })

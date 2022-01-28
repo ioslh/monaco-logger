@@ -1,7 +1,7 @@
 <template>
-  <div v-if="loading">loading monaco library</div>
+  <div class="loading" v-if="loading">loading monaco library</div>
   <slot v-else-if="scopeMonaco" :monaco="scopeMonaco" />
-  <div v-else>monaco load failed</div>
+  <div class="error" v-else>monaco load failed</div>
 </template>
 
 <script lang="ts">
@@ -44,5 +44,11 @@ onMounted(async () => {
 </script>
 
 <style lang="scss" scoped>
-
+.loading, .error {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 </style>
