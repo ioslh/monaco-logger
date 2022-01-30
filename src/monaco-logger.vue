@@ -43,7 +43,7 @@ const setValue = () => {
     //     }
     //   }
     // }])
-    adjustMargin()
+    applyMargin()
   }
 }
 
@@ -76,7 +76,7 @@ const internalParse = () => {
   }
   folders = groups
   maxLineNoWidth = String(maxLineNo).length
-  adjustMargin()
+  applyMargin()
   applyFolders()
 }
 
@@ -96,7 +96,7 @@ const applyFolders = () => {
 }
 
 const SPACE = 1
-const adjustMargin = () => {
+const applyMargin = () => {
   if (!editor) return
   if (!props.showLineNumber && !props.showTimestamp) {
     editor.updateOptions({
@@ -177,7 +177,7 @@ defineExpose({
 
 watch(() => [...props.logs], internalParse, { immediate: true })
 watch(() => props.wrap, setWrap, { immediate: true })
-watch(() => `${props.showTimestamp}-${props.showLineNumber}`, adjustMargin)
+watch(() => `${props.showTimestamp}-${props.showLineNumber}`, applyMargin)
 
 
 onMounted(initLogViewer)
