@@ -5,9 +5,10 @@
 <script setup lang="ts">
 import { onMounted, watch, type DeepReadonly, type CSSProperties } from 'vue'
 import type Monaco from 'monaco-editor'
-import { GROUP_START, GROUP_END } from './utils'
-import type { RawLog, LogLine, LogGroup } from './types'
+import { GROUP_START, GROUP_END, parseLineFragments } from './utils'
+import type { RawLog, LogLine, LogGroup, InternalLogLine } from './types'
 
+const supportDecos = ['command', 'info', 'general']
 let editor = $shallowRef<Monaco.editor.IStandaloneCodeEditor | null>()
 let container = $ref<HTMLDivElement>()
 const ensureDispose = () => {
@@ -24,27 +25,29 @@ const props = defineProps<{
   showTimestamp?: boolean
   logs: RawLog[]
   styles?: Record<string, CSSProperties>
+  stylePrefix?: string
 }>()
 
+let styleKlassPrefix = $computed(() => props.stylePrefix || 'monaco-logger')
 let maxLineNoWidth = $ref(0)
 let timestampWidth = $ref(0)
 let folders = $ref<Array<[number, number]>>([])
 
 const setValue = () => {
-  if (editor) {
-    const value = props.logs.map(l => l.message).join('\n')
-    editor.setValue(value)
-    // editor.deltaDecorations([], [{
-    //   range: new props.monaco.Range(1, 1, 2, 10),
-    //   options: {
-    //     before: {
-    //       content: 'hello world',
-    //       inlineClassName: 'timestamp'
-    //     }
-    //   }
-    // }])
-    applyMargin()
-  }
+  // if (editor) {
+  //   const value = props.logs.map(l => l.message).join('\n')
+  //   editor.setValue(value)
+  //   // editor.deltaDecorations([], [{
+  //   //   range: new props.monaco.Range(1, 1, 2, 10),
+  //   //   options: {
+  //   //     before: {
+  //   //       content: 'hello world',
+  //   //       inlineClassName: 'timestamp'
+  //   //     }
+  //   //   }
+  //   // }])
+  //   applyMargin()
+  // }
 }
 
 const setWrap = () => {
@@ -58,26 +61,87 @@ const internalParse = () => {
   let maxLineNo = 0
   const groups: Array<[number, number]> = []
   let groupStart: number | undefined
-
+  const monacoLogs: string[] = []
+  const decorations: Monaco.editor.IModelDeltaDecoration[] = []
   if (props.logs.length) {
     timestampWidth = props.logs[0].timestamp.length
     props.logs.forEach((raw, idx) => {
       maxLineNo = Math.max(raw.lineNo, maxLineNo)
       if (raw.message.startsWith(GROUP_END) && typeof groupStart === 'number') {
+        monacoLogs.push(raw.message)
         groups.push([groupStart, idx + 1])
         groupStart = undefined
         return
       }
       if (raw.message.startsWith(GROUP_START)) {
+        monacoLogs.push(raw.message)
         groupStart = idx + 1
         return
       }
+      let row = raw.lineNo
+      const found = supportDecos.find(deco => {
+        const start = `[${deco}]`
+        if (raw.message.startsWith(start)) {
+          decorations.push({
+            range: new props.monaco.Range(row, 1, row, raw.message.length + 1),
+            options: {
+              inlineClassName: `${styleKlassPrefix}-style-${deco}`
+            }
+          })
+          return true
+        }
+      })
+      if (found) {
+        monacoLogs.push(raw.message)
+        return
+      }
+
+      const fragments = parseLineFragments(raw.message)
+      let col = 0
+      fragments.forEach(frg => {
+        const klass = []
+        if (frg.italic) {
+          klass.push(`${styleKlassPrefix}-style-italic`)
+        }
+        if (frg.bold) {
+          klass.push(`${styleKlassPrefix}-style-bold`)
+        }
+        if (frg.underline) {
+          klass.push(`${styleKlassPrefix}-style-underline`)
+        }
+        if (frg.color) {
+          klass.push(`${styleKlassPrefix}-color-${frg.color}`)
+        }
+        if (frg.background) {
+          klass.push(`${styleKlassPrefix}-color-${frg.background}`)
+        }
+        const end = col + frg.message.length
+        if (klass.length) {
+          decorations.push({
+            range: new props.monaco.Range(row, col + 1, row, end + 1),
+            options: {
+              inlineClassName: klass.join(' ')
+            }
+          })
+        }
+        col = end
+      })
+      monacoLogs.push(fragments.map(f => f.message).join(''))
     })
   }
   folders = groups
   maxLineNoWidth = String(maxLineNo).length
   applyMargin()
   applyFolders()
+  // apply value
+  if (editor) {
+    editor.setValue(monacoLogs.join('\n'))
+    if (decorations.length) {
+      editor.deltaDecorations([], decorations)
+    }
+  }
+
+  // apply style
 }
 
 let prevFolder: Monaco.IDisposable | null = null
@@ -167,7 +231,7 @@ const initLogViewer = () => {
     },
   })
 
-  setValue()
+  internalParse()
   setWrap()
 }
 
@@ -175,7 +239,7 @@ defineExpose({
   editor: $$(editor),
 })
 
-watch(() => [...props.logs], internalParse, { immediate: true })
+watch(() => [...props.logs], internalParse)
 watch(() => props.wrap, setWrap, { immediate: true })
 watch(() => `${props.showTimestamp}-${props.showLineNumber}`, applyMargin)
 
@@ -184,6 +248,8 @@ onMounted(initLogViewer)
 </script>
 
 <style lang="scss" scoped>
+@import url(./theme.scss);
+
 .container {
   width: 100%;
   height: 100%;
