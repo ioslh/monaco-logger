@@ -15,7 +15,25 @@ export interface LogGroup extends LogBase {
 }
 
 export interface LogLine extends Omit<LogBase, 'groupName'> {
+  fragments: Fragment[]
+}
+
+type AnsiCode = number
+
+export interface Fragment {
+  color?: AnsiCode
+  background?: AnsiCode
+  bold?: boolean
+  italic?: boolean
+  underline?: boolean
   message: string
+
+}
+
+export interface InternalLogLine {
+  fragments: Fragment[]
+  lineNo: number
+  timestamp: string
 }
 
 // -----
