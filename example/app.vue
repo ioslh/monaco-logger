@@ -26,7 +26,6 @@ import MonacoProvider from '@src/monaco-provider.vue'
 import MonacoLogger from '@src/monaco-logger.vue'
 import type { RawLog } from '@src/types'
 import { onMounted, watch, type CSSProperties } from 'vue'
-import logParser from '@src/log-parser'
 import useNodeSize from './use-node-size'
 import Checkbox from './checkbox.vue'
 
