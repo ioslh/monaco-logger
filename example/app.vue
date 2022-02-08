@@ -58,7 +58,7 @@ watch(rect, () => {
 })
 
 onMounted(() => {
-  fetch('/github-log.txt').then(async res => {
+  fetch('/monaco-logger/github-log.txt').then(async res => {
     const raw = await res.text()
     let spaceIndex: number
     logs = raw.split('\n').map((l, idx) => {
