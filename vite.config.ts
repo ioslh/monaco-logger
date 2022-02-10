@@ -5,11 +5,11 @@ import vue from '@vitejs/plugin-vue'
 export default defineConfig({
   plugins: [vue({ reactivityTransform: true })],
   publicDir: './example/public',
-  base: '/monaco-logger/',
-  build: {
-    outDir: 'docs',
-    assetsDir: 'monaco-logger',
-  },
+  // base: '/monaco-logger/',
+  // build: {
+  //   outDir: 'docs',
+  //   assetsDir: 'monaco-logger',
+  // },
   resolve: {
     alias: {
       '@src': '/src/'

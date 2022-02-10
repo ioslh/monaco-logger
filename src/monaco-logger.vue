@@ -8,6 +8,9 @@ import type Monaco from 'monaco-editor'
 import { GROUP_START, GROUP_END, parseLineFragments } from './utils'
 import type { RawLog, LogLine, LogGroup, InternalLogLine } from './types'
 
+const languageId = 'monaco-logger'
+const languageTheme = 'monaco-logger-theme'
+
 const supportDecos = ['command', 'info', 'general']
 let editor = $shallowRef<Monaco.editor.IStandaloneCodeEditor | null>()
 let container = $ref<HTMLDivElement>()
@@ -31,49 +34,18 @@ const props = defineProps<{
 let decorationPrefix = $computed(() => props.stylePrefix || 'monaco-logger')
 let maxLineNoWidth = $ref(0)
 let timestampWidth = $ref(0)
-let monacoFolders = $shallowRef<Array<[number, number]>>([])
 let monacoValue = $ref('')
 let monacoDecorations = $shallowRef<Monaco.editor.IModelDeltaDecoration[]>([])
 
 const internalParse = () => {
   let maxLineNo = 0
-  const groups: Array<[number, number]> = []
-  let groupStart: number | undefined
   const monacoLogs: string[] = []
   const decorations: Monaco.editor.IModelDeltaDecoration[] = []
   if (props.logs.length) {
     timestampWidth = props.logs[0].timestamp.length
     props.logs.forEach((raw, idx) => {
       maxLineNo = Math.max(raw.lineNo, maxLineNo)
-      if (raw.message.startsWith(GROUP_END) && typeof groupStart === 'number') {
-        monacoLogs.push(raw.message)
-        groups.push([groupStart, idx + 1])
-        groupStart = undefined
-        return
-      }
-      if (raw.message.startsWith(GROUP_START)) {
-        monacoLogs.push(raw.message)
-        groupStart = idx + 1
-        return
-      }
-      let row = raw.lineNo
-      const found = supportDecos.find(deco => {
-        const start = `[${deco}]`
-        if (raw.message.startsWith(start)) {
-          decorations.push({
-            range: new props.monaco.Range(row, 1, row, raw.message.length + 1),
-            options: {
-              inlineClassName: `${decorationPrefix}-style-${deco}`
-            }
-          })
-          return true
-        }
-      })
-      if (found) {
-        monacoLogs.push(raw.message)
-        return
-      }
-
+      let row = idx + 1
       const fragments = parseLineFragments(raw.message)
       let col = 0
       fragments.forEach(frg => {
@@ -96,7 +68,7 @@ const internalParse = () => {
         const end = col + frg.message.length
         if (klass.length) {
           decorations.push({
-            range: new props.monaco.Range(row, col + 1, row, end + 1),
+            range: new props.monaco.Range(idx + 1, col + 1, idx + 1, end + 1),
             options: {
               inlineClassName: klass.join(' ')
             }
@@ -106,38 +78,28 @@ const internalParse = () => {
       })
       monacoLogs.push(fragments.map(f => f.message).join(''))
     })
+    console.log(decorations)
+    monacoDecorations = decorations
+    monacoValue = monacoLogs.join('\n')
   }
   maxLineNoWidth = String(maxLineNo).length
-  monacoValue = monacoLogs.join('\n')
-  monacoFolders = groups
-  monacoDecorations = decorations
   if (editor) {
     applyValue()
     applyMargin()
-    applyFolders()
     applyDecorations()
   }
+}
+
+const applyDecorations = () => {
+  if (!editor) return
+  console.log('will apply')
+  editor.deltaDecorations([], monacoDecorations)
 }
 
 const applyValue = () => {
   if (editor) {
     editor.setValue(monacoValue)
   }
-}
-
-let prevFolder: Monaco.IDisposable | null = null
-const applyFolders = () => {
-  if (prevFolder) {
-    prevFolder.dispose()
-    prevFolder = null
-  }
-  prevFolder = props.monaco.languages.registerFoldingRangeProvider('plaintext', {
-    provideFoldingRanges: () => monacoFolders.map(([start, end]) => ({
-      start,
-      end,
-      kind: props.monaco.languages.FoldingRangeKind.Region,
-    }))
-  })
 }
 
 const SPACE = 1
@@ -191,11 +153,6 @@ const applyMargin = () => {
   })
 }
 
-const applyDecorations = () => {
-  if (!editor) return
-  editor.deltaDecorations([], monacoDecorations)
-}
-
 const applyWrap = () => {
   if (!editor) return
   editor.updateOptions({
@@ -205,11 +162,41 @@ const applyWrap = () => {
 
 const initLogViewer = () => {
   ensureDispose()
+  props.monaco.languages.register({ id: languageId })
+  props.monaco.languages.setLanguageConfiguration(languageId, {
+    folding: {
+      markers: {
+        start: /^##\[group\]/,
+        end: /^##\[endgroup\]/,
+      }
+    }
+  })
+  props.monaco.languages.setMonarchTokensProvider(languageId, {
+    tokenizer: {
+      root: ['info', 'general', 'command'].reduce((res, t) => {
+        // const identify = `\\[${t}\\]`
+        // res.push([new RegExp(identify), `monaco-logger-tag`])
+        res.push([new RegExp(`^\\[${t}\\].*`), `monaco-logger-${t}`])
+        return res
+      }, [] as Array<[RegExp, string]>)
+    }
+  })
+  props.monaco.editor.defineTheme(languageTheme, {
+    base: 'vs-dark',
+    inherit: true,
+    rules: [
+      { token: 'monaco-logger-info', foreground: 'ff0000' },
+      { token: 'monaco-logger-general', foreground: 'ff00ff' },
+      { token: 'monaco-logger-command', foreground: '00ffff' },
+      { token: 'monaco-logger-tag', fontStyle: 'bold', foreground: 'ffff00' },
+    ],
+    colors: {},
+  })
   editor = props.monaco.editor.create(container, {
     glyphMargin: true,
     value: '',
-    language: 'plaintext',
-    theme: 'vs-dark',
+    language: languageId,
+    theme: languageTheme,
     fontSize: 14,
     fixedOverflowWidgets: true,
     scrollBeyondLastLine: false,
@@ -221,6 +208,7 @@ const initLogViewer = () => {
       bottom: 15,
     },
   })
+  // editor.executeEdits
   internalParse()
 }
 
@@ -231,7 +219,7 @@ defineExpose({
 watch(() => props.logs, internalParse)
 watch(() => props.wrap, applyWrap, { immediate: true })
 watch(() => `${props.showTimestamp}-${props.showLineNumber}`, applyMargin)
-
+watch($$(monacoValue), applyValue)
 
 onMounted(initLogViewer)
 </script>
